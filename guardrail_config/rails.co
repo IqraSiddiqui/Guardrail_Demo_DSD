@@ -1,0 +1,38 @@
+define flow self check input
+  define bot refuse to respond
+    "I'm sorry, but I can't assist with that request because it was flagged as a potential jailbreak attempt. Please rephrase your query and try again."
+
+  $allowed = execute self_check_input
+  if not $allowed
+    bot refuse to respond
+    stop
+
+define flow content safety check input $content_safety
+  define bot refuse to respond
+    "I'm sorry, but I can't assist with that request as it potentially violated my content safety policy. Please rephrase your query and try again."
+
+  $response = execute ContentSafetyCheckInputAction(model_name=$content_safety)
+  $allowed = $response[0]
+  if not $allowed
+    bot refuse to respond
+    stop
+
+define flow content safety check output $content_safety
+  define bot refuse to respond
+    "I'm sorry, but I can't assist with that request as it potentially violated my content safety policy. Please rephrase your query and try again."
+
+  $response = execute ContentSafetyCheckOutputAction(model_name=$content_safety)
+  $allowed = $response[0]
+  if not $allowed
+    bot refuse to respond
+    stop
+
+define flow topic safety check input $topic_control
+  define bot refuse to respond
+    "I'm sorry, but I can't assist with that request as it was outside my topic scope. Please rephrase your query and try again."
+
+  $response = execute TopicSafetyCheckInputAction(model_name=$topic_control)
+  $on_topic = $response["on_topic"]
+  if not $on_topic
+    bot refuse to respond 
+    stop

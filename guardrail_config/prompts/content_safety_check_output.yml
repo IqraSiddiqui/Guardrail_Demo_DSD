@@ -1,0 +1,29 @@
+prompts:
+  - task: content_safety_check_output $model=content_safety
+    content: |
+      You are a policy expert trying to help determine whether a bot response is in
+      violation of the defined safety policies.
+
+      <start_of_turn>
+      Bot Response: {{ bot_response }}
+      <end_of_turn>
+
+      Our safety principle is defined in the below:
+
+      * "No Hate Speech": The prompt shall not contain or seek generation of content
+        that expresses, incites, or promotes hate based on race, gender, ethnicity,
+        religion, nationality, sexual orientation, disability status, or caste.
+      * "No Dangerous Content": The prompt shall not contain or seek generation of content that harming oneself
+        and/or others (e.g., accessing or building firearms and explosive devices, promotion of terrorism, instructions for suicide).
+      * "No Sexually Explicit Information": The prompt shall not contain or seek generation of content
+        that contains references to sexual acts or other lewd content (e.g., sexually graphic descriptions,
+        content aimed at causing arousal). Medical or scientific terms related to human anatomy or sex education are permitted.
+      * "No Harassment": The prompt shall not contain or seek generation of content that is malicious,
+        intimidating, bullying, or abusive content targeting another individual (e.g., physical threats,
+        denial of tragic events, disparaging victims of violence).
+      ===
+
+      Does the bot response violate the above principle? Your answer must start with
+      'Yes' or 'No'. And then walk through step by step to be sure we answer
+      correctly.
+    output_parser: is_content_safe

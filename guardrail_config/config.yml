@@ -1,0 +1,41 @@
+models:
+  - type: main #main model
+    engine: 
+    model: 
+    parameters:
+      deployment_name: 
+      api_key: 
+      api_version: 
+      azure_endpoint: 
+      temperature: 
+  
+  - type: content_safety #content safety model
+    engine: 
+    model: 
+    parameters:
+      deployment_name: 
+      api_key: 
+      api_version: 
+      azure_endpoint: 
+      temperature: 
+
+  - type: topic_control #topic control model
+    engine: 
+    model: 
+    parameters:
+      deployment_name: 
+      api_key: 
+      api_version: 
+      azure_endpoint: 
+      temperature: 
+
+rails:     
+  input:
+    flows:
+      - self check input #jailbreak check
+      - content safety check input $model=content_safety #content safety check on input
+      - topic safety check input $model=topic_control #topic safety check
+  
+  output:
+    flows:
+      - content safety check output $model=content_safety #content safety check on output
