@@ -27,19 +27,19 @@ This repository demonstrates the integration of [NeMo Guardrails](https://github
    git clone https://github.com/IqraSiddiqui/Guardrail_Demo_DSD.git
    cd Guardrail_Demo_DSD
 2. **Create a virtual environment (optional but recommended):**
-```bash
+  ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+  ```
 3. **Install the dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 4. **Set your OpenAI API key:**
-```bash
+  ```bash
 export OPENAI_API_KEY='your-api-key-here'  # On Windows: set OPENAI_API_KEY=your-api-key-here
-```
+  ```
 ### Running the Application
-```bash
+  ```bash
 python main.py
 ```
